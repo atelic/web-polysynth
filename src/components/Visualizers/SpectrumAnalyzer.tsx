@@ -16,7 +16,7 @@ export function SpectrumAnalyzer({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number>()
-  const [dimensions, setDimensions] = useState({ width: 200, height: compact ? 48 : 80 })
+  const [dimensions, setDimensions] = useState({ width: 200, height: compact ? 40 : 80 })
 
   // Handle resize
   useEffect(() => {
@@ -26,7 +26,7 @@ export function SpectrumAnalyzer({
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width } = entry.contentRect
-        const height = compact ? 48 : 80
+        const height = compact ? 40 : 80
         setDimensions({ width, height })
         if (canvasRef.current) {
           canvasRef.current.width = width
@@ -51,7 +51,7 @@ export function SpectrumAnalyzer({
     const bufferLength = data.length
 
     // Clear canvas
-    ctx.fillStyle = '#1a1a1a'
+    ctx.fillStyle = '#141311'
     ctx.fillRect(0, 0, width, height)
 
     // Calculate bar width based on canvas size
@@ -69,9 +69,9 @@ export function SpectrumAnalyzer({
       const barHeight = normalizedValue * height * 0.9
 
       // Color gradient based on frequency and amplitude
-      const hue = 30 + (i / barCount) * 30 // Orange to yellow
-      const saturation = 80 + normalizedValue * 20
-      const lightness = 40 + normalizedValue * 20
+      const hue = 34 + (i / barCount) * 28 // amber to brass
+      const saturation = 48 + normalizedValue * 18
+      const lightness = 38 + normalizedValue * 20
 
       ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`
       ctx.fillRect(
@@ -83,7 +83,7 @@ export function SpectrumAnalyzer({
     }
 
     // Draw grid lines (fewer for compact)
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+    ctx.strokeStyle = 'rgba(242, 234, 219, 0.1)'
     ctx.lineWidth = 1
     const gridLines = compact ? 2 : 4
     for (let i = 1; i < gridLines; i++) {
@@ -111,10 +111,10 @@ export function SpectrumAnalyzer({
     }
   }, [isActive, draw])
 
-  const paddingClass = compact ? 'p-2' : 'p-3'
+  const paddingClass = compact ? 'p-1.5' : 'p-3'
 
   return (
-    <div ref={containerRef} className={`bg-ableton-surface rounded-lg ${paddingClass} ${className}`}>
+    <div ref={containerRef} className={`rounded-lg bg-ableton-surface ${paddingClass} ${className}`}>
       {!compact && (
         <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-2">
           Spectrum
@@ -124,7 +124,7 @@ export function SpectrumAnalyzer({
         ref={canvasRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="rounded bg-ableton-bg w-full"
+        className="w-full rounded bg-ableton-bg shadow-[inset_0_0_0_1px_rgba(104,87,61,0.45)]"
       />
     </div>
   )

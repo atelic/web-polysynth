@@ -9,27 +9,265 @@
 
   body {
     @apply font-sans antialiased m-0;
+    background:
+      radial-gradient(circle at 12% -10%, rgba(216, 144, 63, 0.18), transparent 34rem),
+      radial-gradient(circle at 88% 0%, rgba(92, 155, 118, 0.14), transparent 28rem),
+      #141311;
+  }
+
+  button {
+    @apply active:translate-y-px;
   }
 }
 
 @layer components {
+  .synth-shell {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .synth-shell::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(rgba(242, 234, 219, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 234, 219, 0.035) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: linear-gradient(to bottom, black, transparent 74%);
+  }
+
+  .synth-header {
+    @apply mx-auto mb-2 grid max-w-[1480px] grid-cols-1 gap-2 lg:grid-cols-[18rem_1fr] lg:items-stretch;
+  }
+
+  .brand-block {
+    @apply relative overflow-hidden rounded-lg border border-ableton-border bg-ableton-surface p-3 shadow-module;
+    background:
+      linear-gradient(135deg, rgba(216, 144, 63, 0.13), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 38%),
+      #27231d;
+  }
+
+  .brand-block::after {
+    content: 'POLY / 04';
+    @apply pointer-events-none absolute bottom-2 right-3 font-mono text-[9px] uppercase tracking-[0.28em] text-ableton-text-muted;
+  }
+
+  .brand-kicker,
+  .start-display {
+    @apply mb-2 flex w-fit items-center gap-2 rounded-full border border-ableton-border-light/60 bg-ableton-bg/70 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-ableton-text-dim;
+  }
+
+  .status-dot {
+    @apply h-2 w-2 rounded-full bg-ableton-green;
+    box-shadow: 0 0 0 4px rgba(92, 155, 118, 0.12);
+    animation: lamp-breathe 2.4s ease-in-out infinite;
+  }
+
+  .brand-title {
+    @apply text-2xl font-black leading-none tracking-normal text-ableton-text md:text-3xl;
+  }
+
+  .brand-subtitle {
+    @apply mt-2 max-w-sm font-mono text-[9px] uppercase tracking-[0.16em] text-ableton-text-muted;
+  }
+
+  .scope-cluster {
+    @apply grid min-w-0 grid-cols-1 gap-2 md:grid-cols-[1fr_10rem] xl:grid-cols-[1fr_11rem_12rem];
+  }
+
+  .scope-wave,
+  .scope-spectrum,
+  .scope-meter {
+    @apply min-w-0 border border-ableton-border bg-ableton-surface shadow-module;
+  }
+
+  .scope-wave {
+    @apply md:col-span-2 xl:col-span-1;
+  }
+
+  .scope-meter {
+    @apply rounded-lg p-3;
+  }
+
+  .keybed-stage {
+    @apply mx-auto mb-2 max-w-[1480px];
+  }
+
+  .module-rack {
+    @apply mx-auto grid max-w-[1480px] grid-cols-1 items-start gap-2 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .module-rack > * {
+    align-self: start;
+  }
+
+  .preset-strip {
+    @apply mx-auto mt-0 max-w-[1480px];
+  }
+
+  @media (min-width: 1280px) {
+    .module-rack {
+      grid-template-areas:
+        'master oscillator pitch filter lfo tempo'
+        'distortion oscillator chorus phaser lfo delay'
+        'reverb oscillator arpeggiator arpeggiator arpeggiator arpeggiator';
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .rack-master {
+      grid-area: master;
+    }
+
+    .rack-oscillator {
+      grid-area: oscillator;
+    }
+
+    .rack-pitch {
+      grid-area: pitch;
+    }
+
+    .rack-filter {
+      grid-area: filter;
+    }
+
+    .rack-lfo {
+      grid-area: lfo;
+    }
+
+    .rack-tempo {
+      grid-area: tempo;
+    }
+
+    .rack-distortion {
+      grid-area: distortion;
+    }
+
+    .rack-chorus {
+      grid-area: chorus;
+    }
+
+    .rack-phaser {
+      grid-area: phaser;
+    }
+
+    .rack-delay {
+      grid-area: delay;
+    }
+
+    .rack-reverb {
+      grid-area: reverb;
+    }
+
+    .rack-arpeggiator {
+      grid-area: arpeggiator;
+    }
+  }
+
   .module-panel {
-    @apply bg-ableton-surface border border-ableton-border rounded-lg p-4 shadow-module;
+    @apply relative overflow-hidden rounded-lg border border-ableton-border bg-ableton-surface p-3 shadow-module;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
+      linear-gradient(90deg, rgba(216, 144, 63, 0.07), transparent 18%),
+      #27231d;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 18px 42px rgba(10, 9, 7, 0.28);
   }
 
   .module-title {
-    @apply text-ableton-text-dim text-xs uppercase tracking-wider mb-3 font-mono;
+    @apply mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ableton-text-dim;
+  }
+
+  .module-title::before {
+    content: '';
+    @apply h-2 w-2 rounded-full bg-ableton-accent;
+    box-shadow: 0 0 0 3px rgba(216, 144, 63, 0.1);
+  }
+
+  .module-rack > .bg-ableton-surface,
+  .module-rack > div > .bg-ableton-surface {
+    @apply relative overflow-hidden rounded-lg border border-ableton-border shadow-module;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
+      #27231d;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 18px 42px rgba(10, 9, 7, 0.28);
+  }
+
+  .module-rack > .bg-ableton-surface h3,
+  .module-rack > div > .bg-ableton-surface h3 {
+    @apply mb-3 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-ableton-text-dim;
+  }
+
+  .module-rack > .bg-ableton-surface h3::before,
+  .module-rack > div > .bg-ableton-surface h3::before {
+    content: '';
+    @apply h-2 w-2 rounded-full bg-ableton-accent;
+    box-shadow: 0 0 0 3px rgba(216, 144, 63, 0.1);
   }
 
   .knob-container {
-    @apply flex flex-col items-center gap-2;
+    @apply flex flex-col items-center gap-1.5;
   }
 
   .knob-label {
-    @apply text-ableton-text-dim text-xs uppercase tracking-wide font-mono;
+    @apply font-mono text-[10px] uppercase tracking-[0.18em] text-ableton-text-dim;
   }
 
   .knob-value {
-    @apply text-ableton-text text-sm font-mono tabular-nums;
+    @apply font-mono text-sm tabular-nums text-ableton-text;
+  }
+
+  .synth-footer {
+    @apply mx-auto mt-4 max-w-[1480px] border-t border-ableton-border/70 py-3 text-right font-mono text-[10px] uppercase tracking-[0.22em] text-ableton-text-muted;
+  }
+
+  .start-room {
+    @apply flex items-center justify-center;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(216, 144, 63, 0.12), transparent 24rem),
+      #141311;
+  }
+
+  .start-card {
+    @apply flex w-full max-w-xl items-center justify-between gap-5 rounded-lg border border-ableton-border bg-ableton-surface p-4 shadow-module;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
+      #27231d;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 18px 42px rgba(10, 9, 7, 0.28);
+  }
+
+  .start-title {
+    @apply text-2xl font-black leading-none tracking-normal text-ableton-text md:text-3xl;
+  }
+
+  .start-copy {
+    @apply mt-2 text-sm text-ableton-text-dim;
+  }
+
+  .start-button {
+    @apply w-fit shrink-0 rounded border border-ableton-accent bg-ableton-accent px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.18em] text-ableton-bg transition-all hover:bg-ableton-accent-hover;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.22),
+      0 18px 48px rgba(216, 144, 63, 0.16);
+  }
+
+  @keyframes lamp-breathe {
+    0%,
+    100% {
+      opacity: 0.58;
+      transform: scale(0.92);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }

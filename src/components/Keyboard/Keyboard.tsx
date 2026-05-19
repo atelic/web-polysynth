@@ -25,11 +25,11 @@ export function Keyboard({ activeKeys, onNoteOn, onNoteOff, className = '' }: Ke
 
   return (
     <div
-      className={`bg-ableton-surface border border-ableton-border rounded-lg p-4 ${className}`}
+      className={`rounded-lg border border-ableton-border bg-ableton-surface p-2 shadow-module md:p-3 ${className}`}
     >
-      <div className="relative">
+      <div className="relative rounded-md border border-ableton-border-light/60 bg-ableton-bg p-1.5 shadow-[inset_0_1px_16px_rgba(0,0,0,0.28)]">
         {/* White keys */}
-        <div className="grid grid-cols-9 gap-0.5">
+        <div className="grid grid-cols-9 gap-1">
           {whiteKeys.map((key) => (
             <Key
               key={key.code}
@@ -44,7 +44,7 @@ export function Keyboard({ activeKeys, onNoteOn, onNoteOff, className = '' }: Ke
         </div>
 
         {/* Black keys overlay */}
-        <div className="absolute top-0 left-0 right-0 grid grid-cols-9 gap-0.5 pointer-events-none">
+        <div className="pointer-events-none absolute left-1.5 right-1.5 top-1.5 grid grid-cols-9 gap-1">
           {whiteKeys.map((_, index) => {
             const blackKey = blackKeys.find((bk) => blackKeyPositions[bk.code] === index)
             if (!blackKey) {
@@ -66,8 +66,8 @@ export function Keyboard({ activeKeys, onNoteOn, onNoteOff, className = '' }: Ke
         </div>
       </div>
 
-      <p className="text-center text-xs text-ableton-text-muted mt-3 font-mono">
-        Use keyboard keys A-L (white) and W, E, T, Y, U, O (black) to play
+      <p className="mt-2 text-center font-mono text-[10px] text-ableton-text-muted">
+          A-L play naturals / W E T Y U O play sharps
       </p>
     </div>
   )

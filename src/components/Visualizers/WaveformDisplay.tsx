@@ -46,11 +46,11 @@ export function WaveformDisplay({
     const dpr = window.devicePixelRatio
 
     // Clear canvas
-    ctx.fillStyle = '#1a1a1a'
+    ctx.fillStyle = '#141311'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     // Draw grid lines (fewer for compact)
-    ctx.strokeStyle = '#3d3d3d'
+    ctx.strokeStyle = '#4b4131'
     ctx.lineWidth = 1
     ctx.beginPath()
     // Horizontal center line
@@ -66,7 +66,7 @@ export function WaveformDisplay({
     ctx.stroke()
 
     // Draw waveform
-    ctx.strokeStyle = '#ff764d'
+    ctx.strokeStyle = '#d8903f'
     ctx.lineWidth = (compact ? 1.5 : 2) * dpr
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
@@ -99,11 +99,11 @@ export function WaveformDisplay({
     if (!ctx) return
 
     // Clear and draw flat line
-    ctx.fillStyle = '#1a1a1a'
+    ctx.fillStyle = '#141311'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     // Draw grid
-    ctx.strokeStyle = '#3d3d3d'
+    ctx.strokeStyle = '#4b4131'
     ctx.lineWidth = 1
     ctx.beginPath()
     ctx.moveTo(0, canvas.height / 2)
@@ -117,7 +117,7 @@ export function WaveformDisplay({
     ctx.stroke()
 
     // Flat center line
-    ctx.strokeStyle = '#ff764d'
+    ctx.strokeStyle = '#d8903f'
     ctx.lineWidth = (compact ? 1.5 : 2) * window.devicePixelRatio
     ctx.beginPath()
     ctx.moveTo(0, canvas.height / 2)
@@ -125,17 +125,17 @@ export function WaveformDisplay({
     ctx.stroke()
   }, [isPlaying, dimensions, compact])
 
-  const heightClass = compact ? 'h-12' : 'h-24'
-  const paddingClass = compact ? 'p-2' : 'p-4'
+  const heightClass = compact ? 'h-10' : 'h-24'
+  const paddingClass = compact ? 'p-1.5' : 'p-4'
 
   return (
     <div
-      className={`bg-ableton-surface border border-ableton-border rounded-lg ${paddingClass} ${className}`}
+      className={`rounded-lg border border-ableton-border bg-ableton-surface ${paddingClass} ${className}`}
     >
       {!compact && <h3 className="module-title mb-2">Waveform</h3>}
       <canvas
         ref={canvasRef}
-        className={`w-full ${heightClass} rounded bg-ableton-bg`}
+        className={`w-full ${heightClass} rounded bg-ableton-bg shadow-[inset_0_0_0_1px_rgba(104,87,61,0.45)]`}
         style={{ imageRendering: 'crisp-edges' }}
       />
     </div>

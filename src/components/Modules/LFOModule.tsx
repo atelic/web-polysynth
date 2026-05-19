@@ -9,6 +9,7 @@ interface LFOModuleProps {
   onDepthChange: (depth: number) => void
   onWaveformChange: (waveform: LFOWaveform) => void
   onRoutingChange: (target: ModulationTarget, amount: number, enabled: boolean) => void
+  className?: string
 }
 
 const LFO_WAVEFORM_OPTIONS: { value: LFOWaveform; label: string }[] = [
@@ -25,6 +26,7 @@ export const LFOModule = memo(function LFOModule({
   onDepthChange,
   onWaveformChange,
   onRoutingChange,
+  className = '',
 }: LFOModuleProps) {
   const getRouting = (target: ModulationTarget): ModulationRouting => {
     return modRouting.find((r) => r.target === target) || { target, amount: 0, enabled: false }
@@ -41,12 +43,12 @@ export const LFOModule = memo(function LFOModule({
   }
 
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         LFO
       </h3>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Main LFO controls */}
         <div className="flex items-center justify-center gap-4">
           <Knob
@@ -82,7 +84,7 @@ export const LFOModule = memo(function LFOModule({
         </div>
 
         {/* Modulation routing - Filter cutoff only */}
-        <div className="border-t border-ableton-bg pt-4">
+        <div className="border-t border-ableton-bg pt-3">
           <div className="text-xs text-ableton-text-secondary mb-3 text-center">Routing</div>
           <div className="flex justify-center">
             {/* Filter Cutoff */}

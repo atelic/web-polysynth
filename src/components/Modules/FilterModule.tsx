@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { ModulePanel } from '../Layout/ModulePanel'
 import { Knob } from '../Controls'
 import {
   FilterEnvelopeParams,
@@ -58,18 +57,18 @@ export const FilterModule = memo(function FilterModule({
   className = '',
 }: FilterModuleProps) {
   return (
-    <ModulePanel title="Filter" className={className}>
-      <div className="flex flex-col gap-4">
-        {/* Filter cutoff and resonance */}
-        <div className="flex gap-3">
+    <div className={`module-panel ${className}`}>
+      <h3 className="module-title">Filter</h3>
+      <div className="space-y-3">
+        <div className="grid grid-cols-4 gap-2">
           <Knob
             value={lowpassFreq}
             min={20}
             max={20000}
             onChange={onLowpassFreqChange}
-            label="LP Freq"
+            label="LPF"
             unit="Hz"
-            size="sm"
+            size="xs"
             displayValue={formatFrequency}
             defaultValue={DEFAULT_EFFECT_PARAMS.lowpass.frequency}
           />
@@ -78,21 +77,19 @@ export const FilterModule = memo(function FilterModule({
             min={0.1}
             max={15}
             onChange={onLowpassQChange}
-            label="LP Res"
-            size="sm"
+            label="LP Q"
+            size="xs"
             displayValue={(v) => v.toFixed(1)}
             defaultValue={DEFAULT_EFFECT_PARAMS.lowpass.Q}
           />
-        </div>
-        <div className="flex gap-3">
           <Knob
             value={highpassFreq}
             min={20}
             max={AUDIO_CONSTANTS.HIGHPASS_MAX_FREQ_HZ}
             onChange={onHighpassFreqChange}
-            label="HP Freq"
+            label="HPF"
             unit="Hz"
-            size="sm"
+            size="xs"
             displayValue={formatFrequency}
             defaultValue={DEFAULT_EFFECT_PARAMS.highpass.frequency}
           />
@@ -101,24 +98,25 @@ export const FilterModule = memo(function FilterModule({
             min={0.1}
             max={15}
             onChange={onHighpassQChange}
-            label="HP Res"
-            size="sm"
+            label="HP Q"
+            size="xs"
             displayValue={(v) => v.toFixed(1)}
             defaultValue={DEFAULT_EFFECT_PARAMS.highpass.Q}
           />
         </div>
 
-        {/* Filter Envelope */}
         <div className="border-t border-ableton-bg pt-3">
-          <div className="text-xs text-ableton-text-secondary mb-2 text-center">Filter Envelope</div>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ableton-text-muted">
+            Env
+          </div>
+          <div className="grid grid-cols-5 gap-1.5">
             <Knob
               value={filterEnvelope.attack}
               min={0.001}
               max={2}
               onChange={onFilterEnvAttackChange}
               label="A"
-              size="sm"
+              size="xs"
               displayValue={formatTime}
               defaultValue={DEFAULT_FILTER_ENVELOPE_PARAMS.attack}
             />
@@ -128,7 +126,7 @@ export const FilterModule = memo(function FilterModule({
               max={2}
               onChange={onFilterEnvDecayChange}
               label="D"
-              size="sm"
+              size="xs"
               displayValue={formatTime}
               defaultValue={DEFAULT_FILTER_ENVELOPE_PARAMS.decay}
             />
@@ -138,7 +136,7 @@ export const FilterModule = memo(function FilterModule({
               max={1}
               onChange={onFilterEnvSustainChange}
               label="S"
-              size="sm"
+              size="xs"
               displayValue={(v) => `${(v * 100).toFixed(0)}%`}
               defaultValue={DEFAULT_FILTER_ENVELOPE_PARAMS.sustain}
             />
@@ -148,7 +146,7 @@ export const FilterModule = memo(function FilterModule({
               max={3}
               onChange={onFilterEnvReleaseChange}
               label="R"
-              size="sm"
+              size="xs"
               displayValue={formatTime}
               defaultValue={DEFAULT_FILTER_ENVELOPE_PARAMS.release}
             />
@@ -158,13 +156,13 @@ export const FilterModule = memo(function FilterModule({
               max={1}
               onChange={onFilterEnvAmountChange}
               label="Amt"
-              size="sm"
+              size="xs"
               displayValue={(v) => `${(v * 100).toFixed(0)}%`}
               defaultValue={DEFAULT_FILTER_ENVELOPE_PARAMS.amount}
             />
           </div>
         </div>
       </div>
-    </ModulePanel>
+    </div>
   )
 })

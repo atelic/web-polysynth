@@ -8,6 +8,7 @@ interface ArpeggiatorModuleProps {
   onPatternChange: (pattern: ArpPattern) => void
   onRateChange: (rate: ArpRate) => void
   onOctavesChange: (octaves: 1 | 2 | 3) => void
+  className?: string
 }
 
 const PATTERN_OPTIONS: { value: ArpPattern; label: string }[] = [
@@ -36,14 +37,15 @@ export const ArpeggiatorModule = memo(function ArpeggiatorModule({
   onPatternChange,
   onRateChange,
   onOctavesChange,
+  className = '',
 }: ArpeggiatorModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Arpeggiator
       </h3>
 
-      <div className="space-y-4">
+      <div className="grid gap-3 xl:grid-cols-4 xl:items-start">
         {/* On/Off toggle */}
         <div className="flex justify-center">
           <ToggleButton label="Active" value={params.enabled} onChange={onEnabledChange} />

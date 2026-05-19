@@ -7,6 +7,7 @@ interface ChorusModuleProps {
   onRateChange: (rate: number) => void
   onDepthChange: (depth: number) => void
   onWetChange: (wet: number) => void
+  className?: string
 }
 
 export const ChorusModule = memo(function ChorusModule({
@@ -14,9 +15,10 @@ export const ChorusModule = memo(function ChorusModule({
   onRateChange,
   onDepthChange,
   onWetChange,
+  className = '',
 }: ChorusModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Chorus
       </h3>

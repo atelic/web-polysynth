@@ -35,7 +35,7 @@ export function VUMeter({ getMeterLevel, isPlaying, className = '', compact = fa
     return (
       <div className={`flex items-center gap-2 ${className}`}>
         <span className="text-[10px] font-semibold text-ableton-text-secondary uppercase tracking-wider">Level</span>
-        <div className="relative flex-1 h-3 bg-ableton-bg rounded overflow-hidden min-w-[60px]">
+        <div className="relative h-2.5 min-w-[60px] flex-1 overflow-hidden rounded bg-ableton-bg shadow-[inset_0_0_0_1px_rgba(104,87,61,0.6)]">
           {/* Meter level */}
           <div
             className={`absolute top-0 bottom-0 left-0 transition-all duration-75 ${getColor()}`}

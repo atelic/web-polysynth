@@ -9,6 +9,7 @@ interface OscillatorModuleProps {
   onSubOscOctaveChange: (octave: -1 | -2) => void
   onNoiseLevelChange: (level: number) => void
   onNoiseTypeChange: (type: NoiseType) => void
+  className?: string
 }
 
 export const OscillatorModule = memo(function OscillatorModule({
@@ -18,21 +19,22 @@ export const OscillatorModule = memo(function OscillatorModule({
   onSubOscOctaveChange,
   onNoiseLevelChange,
   onNoiseTypeChange,
+  className = '',
 }: OscillatorModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Oscillator
       </h3>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Waveform selector */}
         <div className="flex justify-center">
           <WaveformSelector value={params.waveform} onChange={onWaveformChange} />
         </div>
 
         {/* Sub Oscillator */}
-        <div className="border-t border-ableton-bg pt-4">
+        <div className="border-t border-ableton-bg pt-3">
           <div className="text-xs text-ableton-text-secondary mb-2 text-center">Sub Osc</div>
           <div className="flex items-center justify-center gap-4">
             <Knob
@@ -58,7 +60,7 @@ export const OscillatorModule = memo(function OscillatorModule({
         </div>
 
         {/* Noise */}
-        <div className="border-t border-ableton-bg pt-4">
+        <div className="border-t border-ableton-bg pt-3">
           <div className="text-xs text-ableton-text-secondary mb-2 text-center">Noise</div>
           <div className="flex items-center justify-center gap-4">
             <Knob

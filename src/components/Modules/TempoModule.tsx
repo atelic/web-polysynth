@@ -8,6 +8,7 @@ interface TempoModuleProps {
   onBpmChange: (bpm: number) => void
   onTapTempo: () => void
   onToggleTransport: () => void
+  className?: string
 }
 
 export const TempoModule = memo(function TempoModule({
@@ -16,14 +17,15 @@ export const TempoModule = memo(function TempoModule({
   onBpmChange,
   onTapTempo,
   onToggleTransport,
+  className = '',
 }: TempoModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Tempo
       </h3>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* BPM Display and Control */}
         <div className="flex justify-center">
           <Knob

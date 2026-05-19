@@ -17,7 +17,7 @@ export function SegmentedSelector<T extends string | number>({
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="flex rounded bg-ableton-bg overflow-hidden ring-1 ring-ableton-border">
+      <div className="flex overflow-hidden rounded bg-ableton-bg ring-1 ring-ableton-border-light/70">
         {options.map((option) => (
           <button
             key={String(option.value)}
@@ -26,8 +26,8 @@ export function SegmentedSelector<T extends string | number>({
               font-bold uppercase tracking-wide transition-all border-r border-ableton-border last:border-r-0
               ${
                 value === option.value
-                  ? 'bg-ableton-accent text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
-                  : 'bg-ableton-surface text-ableton-text-muted hover:bg-ableton-surface-light hover:text-ableton-text-dim'
+                  ? 'bg-ableton-accent text-ableton-bg shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
+                  : 'bg-ableton-bg text-ableton-text-muted hover:bg-ableton-surface-light hover:text-ableton-text-dim'
               }
             `}
             onClick={() => onChange(option.value)}

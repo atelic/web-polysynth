@@ -21,23 +21,23 @@ import { PresetManager } from '../Presets'
 
 function StartOverlay({ onStart }: { onStart: () => void }) {
   return (
-    <div className="min-h-screen bg-ableton-bg flex flex-col items-center justify-center gap-6">
-      <h1 className="text-4xl font-bold text-ableton-text">Web PolySynth</h1>
-      <p className="text-ableton-text-dim max-w-md text-center">
-        A 4-voice polyphonic synthesizer with LFO, sub-oscillator, filter envelope,
-        chorus, phaser, delay, reverb, and arpeggiator - right in your browser.
-        <br />
-        Use your keyboard or click the keys to play chords.
-      </p>
-      <button
-        onClick={onStart}
-        className="px-8 py-4 bg-ableton-accent text-white rounded-lg text-xl font-semibold hover:bg-ableton-accent-hover transition-colors shadow-lg"
-      >
-        Click to Start
-      </button>
-      <p className="text-ableton-text-muted text-sm">
-        Audio requires user interaction to start
-      </p>
+    <div className="start-room min-h-[100dvh] bg-ableton-bg px-4 py-4">
+      <div className="start-card">
+        <div>
+          <div className="start-display">
+            <span className="status-dot" />
+            <span>Audio off</span>
+          </div>
+          <h1 className="start-title">Web PolySynth</h1>
+          <p className="start-copy">Enable audio to open the synth.</p>
+        </div>
+        <button
+          onClick={onStart}
+          className="start-button"
+        >
+          Start
+        </button>
+      </div>
     </div>
   )
 }
@@ -53,16 +53,20 @@ function SynthUI() {
   })
 
   return (
-    <div className="min-h-screen bg-ableton-bg p-3 md:p-4">
-      <header className="mb-3 flex flex-col lg:flex-row lg:items-center gap-3">
-        <div className="flex-shrink-0">
-          <h1 className="text-xl font-bold text-ableton-text">Web PolySynth</h1>
-          <p className="text-xs text-ableton-text-dim">4-voice polyphonic</p>
+    <div className="synth-shell min-h-[100dvh] bg-ableton-bg p-3 md:p-5">
+      <header className="synth-header">
+        <div className="brand-block">
+          <div className="brand-kicker">
+            <span className="status-dot" />
+            <span>{synth.isPlaying ? 'Signal present' : 'Standing by'}</span>
+          </div>
+          <h1 className="brand-title">Web PolySynth</h1>
+          <p className="brand-subtitle">four voices / browser-native signal lab</p>
         </div>
-        <div className="flex-1 flex items-center gap-2">
+        <div className="scope-cluster">
           <VisualizerErrorBoundary name="Waveform">
             <WaveformDisplay
-              className="flex-1 min-w-0"
+              className="scope-wave"
               getWaveformData={synth.getWaveformData}
               isPlaying={synth.isPlaying}
               compact
@@ -73,7 +77,7 @@ function SynthUI() {
               getFFTData={synth.getFFTData}
               isActive={synth.isInitialized}
               compact
-              className="w-32 flex-shrink-0"
+              className="scope-spectrum"
             />
           </VisualizerErrorBoundary>
           <VisualizerErrorBoundary name="VU Meter">
@@ -81,13 +85,13 @@ function SynthUI() {
               getMeterLevel={synth.getMeterLevel}
               isPlaying={synth.isPlaying}
               compact
-              className="w-32 flex-shrink-0"
+              className="scope-meter"
             />
           </VisualizerErrorBoundary>
         </div>
       </header>
 
-      <div className="mb-3">
+      <div className="keybed-stage">
         <Keyboard
           activeKeys={synth.activeKeys}
           onNoteOn={synth.handleNoteOn}
@@ -95,8 +99,9 @@ function SynthUI() {
         />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="module-rack">
         <MasterModule
+          className="rack-master"
           volume={synth.params.master.volume}
           attack={synth.params.master.attack}
           release={synth.params.master.release}
@@ -112,6 +117,7 @@ function SynthUI() {
         />
 
         <OscillatorModule
+          className="rack-oscillator"
           params={synth.params.oscillator}
           onWaveformChange={synth.setWaveform}
           onSubOscLevelChange={synth.setSubOscLevel}
@@ -121,6 +127,7 @@ function SynthUI() {
         />
 
         <PitchModule
+          className="rack-pitch"
           glideParams={synth.params.glide}
           pitchBendValue={synth.pitchBendValue}
           pitchBendRange={synth.params.pitchBendRange}
@@ -131,6 +138,7 @@ function SynthUI() {
         />
 
         <FilterModule
+          className="rack-filter"
           lowpassFreq={synth.params.effects.lowpass.frequency}
           lowpassQ={synth.params.effects.lowpass.Q}
           highpassFreq={synth.params.effects.highpass.frequency}
@@ -148,6 +156,7 @@ function SynthUI() {
         />
 
         <LFOModule
+          className="rack-lfo"
           lfoParams={synth.params.lfo}
           modRouting={synth.params.modRouting}
           onRateChange={synth.setLFORate}
@@ -157,6 +166,7 @@ function SynthUI() {
         />
 
         <TempoModule
+          className="rack-tempo"
           bpm={synth.tempo.bpm}
           isPlaying={synth.tempo.isPlaying}
           onBpmChange={synth.setBpm}
@@ -165,6 +175,7 @@ function SynthUI() {
         />
 
         <DistortionModule
+          className="rack-distortion"
           amount={synth.params.effects.distortion.amount}
           wet={synth.params.effects.distortion.wet}
           onAmountChange={synth.setDistortionAmount}
@@ -172,6 +183,7 @@ function SynthUI() {
         />
 
         <ChorusModule
+          className="rack-chorus"
           params={synth.params.chorus}
           onRateChange={synth.setChorusRate}
           onDepthChange={synth.setChorusDepth}
@@ -179,6 +191,7 @@ function SynthUI() {
         />
 
         <PhaserModule
+          className="rack-phaser"
           params={synth.params.phaser}
           onRateChange={synth.setPhaserRate}
           onDepthChange={synth.setPhaserDepth}
@@ -186,6 +199,7 @@ function SynthUI() {
         />
 
         <DelayModule
+          className="rack-delay"
           time={synth.params.effects.delay.time}
           feedback={synth.params.effects.delay.feedback}
           wet={synth.params.effects.delay.wet}
@@ -195,6 +209,7 @@ function SynthUI() {
         />
 
         <ReverbModule
+          className="rack-reverb"
           decay={synth.params.effects.reverb.decay}
           wet={synth.params.effects.reverb.wet}
           onDecayChange={synth.setReverbDecay}
@@ -202,6 +217,7 @@ function SynthUI() {
         />
 
         <ArpeggiatorModule
+          className="rack-arpeggiator"
           params={synth.arpeggiator.params}
           onEnabledChange={synth.setArpEnabled}
           onPatternChange={synth.setArpPattern}
@@ -209,23 +225,24 @@ function SynthUI() {
           onOctavesChange={synth.setArpOctaves}
         />
 
-        <div className="col-span-2 md:col-span-3 lg:col-span-6">
-          <PresetManager
-            presets={synth.presets.presets}
-            currentPresetId={synth.presets.currentPresetId}
-            onLoadPreset={synth.loadPreset}
-            onSavePreset={synth.savePreset}
-            onDeletePreset={synth.deletePreset}
-            onInitPreset={synth.initPreset}
-            onReset={synth.handleReset}
-            getCurrentParams={synth.getCurrentParams}
-            isUserPreset={synth.isUserPreset}
-          />
-        </div>
       </div>
 
-      <footer className="mt-8 text-center text-xs text-ableton-text-muted">
-        Built with React, Tone.js, and Tailwind CSS
+      <div className="preset-strip">
+        <PresetManager
+          presets={synth.presets.presets}
+          currentPresetId={synth.presets.currentPresetId}
+          onLoadPreset={synth.loadPreset}
+          onSavePreset={synth.savePreset}
+          onDeletePreset={synth.deletePreset}
+          onInitPreset={synth.initPreset}
+          onReset={synth.handleReset}
+          getCurrentParams={synth.getCurrentParams}
+          isUserPreset={synth.isUserPreset}
+        />
+      </div>
+
+      <footer className="synth-footer">
+        React / Tone.js / Tailwind CSS
       </footer>
     </div>
   )

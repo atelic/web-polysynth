@@ -8,12 +8,13 @@ interface KnobProps {
   onChange: (value: number) => void
   label: string
   unit?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   displayValue?: (value: number) => string
   defaultValue?: number
 }
 
 const sizeClasses = {
+  xs: { knob: 'w-9 h-9', text: 'text-[11px]' },
   sm: { knob: 'w-10 h-10', text: 'text-xs' },
   md: { knob: 'w-14 h-14', text: 'text-sm' },
   lg: { knob: 'w-20 h-20', text: 'text-base' },
@@ -99,7 +100,7 @@ export function Knob({
             fill="none"
             stroke="currentColor"
             strokeWidth="4"
-            className="text-ableton-border"
+            className="text-ableton-border-light/60"
             strokeDasharray="188.5 62.8"
             strokeDashoffset="-31.4"
             strokeLinecap="round"
@@ -120,11 +121,12 @@ export function Knob({
         </svg>
         {/* Knob body */}
         <div
-          className="absolute inset-2 rounded-full bg-gradient-to-b from-ableton-surface-light to-ableton-surface shadow-knob"
+          className="absolute inset-2 rounded-full border border-ableton-border-light bg-gradient-to-b from-ableton-surface-light to-ableton-bg shadow-knob"
           style={{ transform: `rotate(${rotation}deg)` }}
         >
           {/* Indicator line */}
-          <div className="absolute top-1 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-ableton-accent rounded-full" />
+          <div className="absolute left-1/2 top-1 h-2.5 w-1 -translate-x-1/2 rounded-full bg-ableton-accent" />
+          <div className="absolute inset-3 rounded-full border border-ableton-border/60 bg-ableton-bg/40" />
         </div>
       </div>
       <span className={`knob-value ${sizeClasses[size].text}`}>

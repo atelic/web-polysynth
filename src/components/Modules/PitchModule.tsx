@@ -10,6 +10,7 @@ interface PitchModuleProps {
   onGlideTimeChange: (time: number) => void
   onPitchBendChange: (value: number) => void
   onPitchBendRangeChange: (range: number) => void
+  className?: string
 }
 
 export const PitchModule = memo(function PitchModule({
@@ -20,21 +21,22 @@ export const PitchModule = memo(function PitchModule({
   onGlideTimeChange,
   onPitchBendChange,
   onPitchBendRangeChange,
+  className = '',
 }: PitchModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Pitch
       </h3>
 
-      <div className="flex items-start justify-center gap-6">
+      <div className="flex items-start justify-center gap-4">
         {/* Pitch Bend Wheel */}
         <div className="flex flex-col items-center gap-2">
           <PitchWheel
             value={pitchBendValue}
             onChange={onPitchBendChange}
             label="BEND"
-            height={100}
+            height={84}
             springBack={true}
           />
           <Knob

@@ -80,17 +80,17 @@ export function Slider({
         <span className="knob-label">{label}</span>
         <div
           ref={trackRef}
-          className="relative w-2 h-24 bg-ableton-border rounded-full cursor-pointer"
+          className="relative h-24 w-2 cursor-pointer rounded-full bg-ableton-bg shadow-[inset_0_0_0_1px_rgba(104,87,61,0.7)]"
           onMouseDown={handleMouseDown}
         >
           {/* Fill */}
           <div
-            className="absolute bottom-0 left-0 right-0 bg-ableton-accent rounded-full transition-all"
+            className="absolute bottom-0 left-0 right-0 rounded-full bg-ableton-accent transition-all"
             style={{ height: `${normalizedValue * 100}%` }}
           />
           {/* Handle */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-ableton-surface-light border-2 border-ableton-accent rounded-full shadow-knob"
+            className="absolute left-1/2 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-ableton-accent bg-ableton-text shadow-knob"
             style={{ bottom: `calc(${normalizedValue * 100}% - 8px)` }}
           />
         </div>
@@ -113,17 +113,17 @@ export function Slider({
       </div>
       <div
         ref={trackRef}
-        className="relative h-2 bg-ableton-border rounded-full cursor-pointer"
+        className="relative h-2 cursor-pointer rounded-full bg-ableton-bg shadow-[inset_0_0_0_1px_rgba(104,87,61,0.7)]"
         onMouseDown={handleMouseDown}
       >
         {/* Fill */}
         <div
-          className="absolute top-0 left-0 bottom-0 bg-ableton-accent rounded-full transition-all"
+          className="absolute bottom-0 left-0 top-0 rounded-full bg-ableton-accent transition-all"
           style={{ width: `${normalizedValue * 100}%` }}
         />
         {/* Handle */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-ableton-surface-light border-2 border-ableton-accent rounded-full shadow-knob"
+          className="absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-ableton-accent bg-ableton-text shadow-knob"
           style={{ left: `calc(${normalizedValue * 100}% - 8px)` }}
         />
       </div>

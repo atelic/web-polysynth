@@ -33,14 +33,14 @@ export function Key({ noteName, keyCode, isBlack, isActive, onNoteOn, onNoteOff 
     return (
       <button
         className={`
-          relative z-10 h-16 -mx-2 flex flex-col items-center justify-end pb-1
-          rounded-b-md transition-all duration-75 touch-none select-none
+          relative z-10 -mx-2 flex h-14 flex-col items-center justify-end pb-1
+          rounded-b transition-all duration-100 touch-none select-none
           ${
             isActive
               ? 'bg-ableton-accent shadow-key-active'
-              : 'bg-gradient-to-b from-gray-700 to-ableton-key-black hover:from-gray-600 hover:to-gray-800'
+              : 'bg-gradient-to-b from-ableton-surface-light to-ableton-key-black hover:from-ableton-border hover:to-ableton-key-black-hover'
           }
-          border border-gray-600
+          border border-ableton-border-light
         `}
         onMouseDown={handleNoteOn}
         onMouseUp={handleNoteOff}
@@ -50,7 +50,7 @@ export function Key({ noteName, keyCode, isBlack, isActive, onNoteOn, onNoteOff 
         onTouchCancel={handleNoteOff}
       >
         <span
-          className={`text-[10px] font-mono ${isActive ? 'text-white' : 'text-ableton-text-muted'}`}
+          className={`font-mono text-[10px] ${isActive ? 'text-ableton-bg' : 'text-ableton-text-muted'}`}
         >
           {keyLabel}
         </span>
@@ -61,14 +61,14 @@ export function Key({ noteName, keyCode, isBlack, isActive, onNoteOn, onNoteOff 
   return (
     <button
       className={`
-        relative h-24 flex flex-col items-center justify-end pb-2
-        rounded-b-md transition-all duration-75 touch-none select-none
+        flex h-full min-h-20 w-full flex-col items-center justify-end pb-2 md:min-h-24
+        rounded-b transition-all duration-100 touch-none select-none
         ${
           isActive
             ? 'bg-ableton-accent shadow-key-active'
-            : 'bg-gradient-to-b from-ableton-key-white to-gray-200 hover:from-gray-100 hover:to-gray-300'
+            : 'bg-gradient-to-b from-ableton-key-white via-[#dfd0b5] to-[#c1ad88] hover:from-ableton-key-white-hover hover:to-[#d6c19b]'
         }
-        border border-gray-300
+        border border-[#9c875f] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]
       `}
       onMouseDown={handleNoteOn}
       onMouseUp={handleNoteOff}
@@ -78,12 +78,12 @@ export function Key({ noteName, keyCode, isBlack, isActive, onNoteOn, onNoteOff 
       onTouchCancel={handleNoteOff}
     >
       <span
-        className={`text-xs font-mono ${isActive ? 'text-white' : 'text-ableton-text-muted'} mb-1`}
+        className={`mb-1 font-mono text-xs ${isActive ? 'text-ableton-bg' : 'text-ableton-bg/70'}`}
       >
         {noteName}
       </span>
       <span
-        className={`text-[10px] font-mono ${isActive ? 'text-white/70' : 'text-ableton-text-muted/50'}`}
+        className={`font-mono text-[10px] ${isActive ? 'text-ableton-bg/70' : 'text-ableton-bg/45'}`}
       >
         {keyLabel}
       </span>

@@ -7,6 +7,7 @@ interface PhaserModuleProps {
   onRateChange: (rate: number) => void
   onDepthChange: (depth: number) => void
   onWetChange: (wet: number) => void
+  className?: string
 }
 
 export const PhaserModule = memo(function PhaserModule({
@@ -14,9 +15,10 @@ export const PhaserModule = memo(function PhaserModule({
   onRateChange,
   onDepthChange,
   onWetChange,
+  className = '',
 }: PhaserModuleProps) {
   return (
-    <div className="bg-ableton-surface rounded-lg p-4">
+    <div className={`bg-ableton-surface rounded-lg p-3 ${className}`}>
       <h3 className="text-xs font-semibold text-ableton-text-secondary uppercase tracking-wider mb-4">
         Phaser
       </h3>
